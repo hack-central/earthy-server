@@ -163,5 +163,5 @@ axios(config)
 # Deployment pm2
 
 ```
-pm2 start npm --interpreter bash --name "earthy-server" -i -1 -- start
+pm2 start yarn --interpreter bash --name "earthy-server" -i -1 -- start
 ```
