@@ -13,4 +13,6 @@ server.use(middlewares);
 server.use(customRouter);
 server.use(router);
 
-server.listen(process.env.PORT, () => consola.success('Listening on port', process.env.PORT));
+server.listen(process.env.PORT, () =>
+    consola.success('Listening on port', process.env.PORT)
+);

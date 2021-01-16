@@ -1,4 +1,4 @@
-const {create: Server} = require('json-server');
+const { create: Server } = require('json-server');
 
 const router = Server();
 
