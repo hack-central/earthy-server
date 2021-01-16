@@ -15,6 +15,7 @@
   "dependencies": {
     "casual": "^1.6.2",
     "consola": "^2.15.0",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.16.1",
     "json-server": "^0.16.3"
   },
