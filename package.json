@@ -4,17 +4,17 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "yarn start:dev",
-    "start:gen": "node server.js",
-    "start:dev": "json-server --watch dev_db.json --routes routes.json --middlewares ./middleware.js",
-    "start:prod": "json-server db.json --routes routes.json --middlewares ./middleware.js",
-    "start:deploy": "yarn start:gen && yarn start:prod"
+    "gen:prod": "node generator.js",
+    "gen:dev": "cross-env NODE_ENV=development node generator.js",
+    "start": "yarn gen:prod && cross-env NODE_ENV=production PORT=8080 node .",
+    "start:dev": "yarn gen:dev && cross-env NODE_ENV=development PORT=8080 node ."
   },
   "author": "Saurav M. H",
   "license": "MIT",
   "dependencies": {
     "casual": "^1.6.2",
     "consola": "^2.15.0",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.16.1",
     "json-server": "^0.16.3"
   },

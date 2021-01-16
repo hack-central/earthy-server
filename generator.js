@@ -1,15 +1,32 @@
-const casual = require("casual");
-const consola = require("consola");
-const { sub } = require("date-fns");
+const fs = require('fs');
+const casual = require('casual');
+const consola = require('consola');
+const { sub } = require('date-fns');
 
-module.exports = (mode) => {
+const trophyList = [
+  'Mr. Green',
+  'Earth Saviour',
+  'Novice Planter',
+  'Green thumb Jr.',
+  'Green Thumb Sr.',
+  'Earth Cleaner',
+  'Earth Cleaner Veteran',
+  'Environmentalist lvl 1',
+  'Environmentalist lvl 2',
+  'Environmentalist lvl 3',
+  'Recycling Enthusiast',
+  'Green Influencer Novice',
+  'Green Influencer Veteran',
+];
+
+const generator = mode => {
   casual.seed(1);
   let MAX_USERS = 100;
   let MAX_POSTS = 1000;
   let MAX_COMMENTS = 10;
   let MAX_EVENTS = 100;
 
-  if (mode === "dev") {
+  if (mode === 'development') {
     MAX_USERS = 10;
     MAX_POSTS = 10;
     MAX_COMMENTS = 5;
@@ -18,7 +35,7 @@ module.exports = (mode) => {
 
   const data = { users: [], posts: [], comments: [], events: [] };
 
-  casual.define("user", () => {
+  casual.define('user', () => {
     return {
       firstName: casual.first_name,
       lastName: casual.last_name,
@@ -32,7 +49,7 @@ module.exports = (mode) => {
     };
   });
 
-  casual.define("event", () => {
+  casual.define('event', () => {
     const startTime = casual.unix_time;
 
     return {
@@ -56,7 +73,7 @@ module.exports = (mode) => {
     };
   });
 
-  casual.define("post", () => {
+  casual.define('post', () => {
     return {
       title: casual.title,
       content: casual.description,
@@ -66,7 +83,7 @@ module.exports = (mode) => {
     };
   });
 
-  casual.define("comment", () => {
+  casual.define('comment', () => {
     return {
       content: casual.sentence,
       likes: casual.integer(1, 100),
@@ -77,7 +94,7 @@ module.exports = (mode) => {
   });
 
   // Create users
-  consola.success("Creating new users!");
+  consola.success('Creating new users!');
   for (let i = 1; i <= MAX_USERS; i++) {
     data.users.push({ id: i, ...casual.user });
     consola.debug(`Pushed user ${i}`);
@@ -85,7 +102,7 @@ module.exports = (mode) => {
   consola.success(`${MAX_USERS} users generated!`);
 
   // Create posts
-  consola.success("Creating new posts!");
+  consola.success('Creating new posts!');
   let curr_comments_count = 0;
   for (let i = 1; i <= MAX_POSTS; i++) {
     data.posts.push({ id: i, ...casual.post });
@@ -104,7 +121,7 @@ module.exports = (mode) => {
   );
 
   // Create events
-  consola.success("Creating new events!");
+  consola.success('Creating new events!');
   for (let i = 1; i <= MAX_EVENTS; i++) {
     data.events.push({ id: i, ...casual.event });
     consola.debug(`Pushed event ${i}`);
@@ -114,7 +131,7 @@ module.exports = (mode) => {
   return data;
 };
 
-function array_of(size, start, end) {
+const array_of = (size, start, end) => {
   size = parseInt(size);
   const result = [];
 
@@ -127,9 +144,9 @@ function array_of(size, start, end) {
   }
 
   return result;
-}
+};
 
-function getRandomSubarray(arr, size) {
+const getRandomSubarray = (arr, size) => {
   const shuffled = arr.slice(0);
   let i = arr.length;
 
@@ -140,20 +157,15 @@ function getRandomSubarray(arr, size) {
     shuffled[i] = temp;
   }
   return shuffled.slice(0, size);
-}
+};
 
-const trophyList = [
-  "Mr. Green",
-  "Earth Saviour",
-  "Novice Planter",
-  "Green thumb Jr.",
-  "Green Thumb Sr.",
-  "Earth Cleaner",
-  "Earth Cleaner Veteran",
-  "Environmentalist lvl 1",
-  "Environmentalist lvl 2",
-  "Environmentalist lvl 3",
-  "Recycling Enthusiast",
-  "Green Influencer Novice",
-  "Green Influencer Veteran",
-];
+const mode = process.env.NODE_ENV;
+const data = generator(mode);
+consola.success('Generation completed. Populating latest json into db.json');
+
+fs.writeFile(
+  mode === 'development' ? 'dev_db.json' : 'db.json',
+  JSON.stringify(data),
+  'utf8',
+  () => consola.success('db.json populated!')
+);

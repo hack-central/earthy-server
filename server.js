@@ -1,22 +1,16 @@
-const consola = require("consola");
-const fs = require("fs");
-
-const generator = require("./generator");
+const jsonServer = require('json-server');
+const customRouter = require('./routes');
+const consola = require('consola');
 
 consola.LogLevel = 4;
+const server = jsonServer.create();
+const middlewares = jsonServer.defaults();
 
-const main = () => {
-  const mode = "dev";
-  const data = generator(mode);
+const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
+const router = jsonServer.router(db);
 
-  consola.success("Generation completed. Populating latest json into db.json");
+server.use(middlewares);
+server.use(customRouter);
+server.use(router);
 
-  fs.writeFile(
-    mode === "dev" ? "dev_db.json" : "db.json",
-    JSON.stringify(data),
-    "utf8",
-    () => consola.success("db.json populated!")
-  );
-};
-
-main();
+server.listen(process.env.PORT, () => consola.success('Listening on port', process.env.PORT));
