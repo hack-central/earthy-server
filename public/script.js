@@ -1,7 +1,7 @@
 function ResourceItem({ name, length }) {
     return `
       <li>
-        <a href="${name}">/${name}</a>
+        <a href="api/${name}">/${name}</a>
         <sup>${length ? `${length}x` : 'object'}</sup>
       </li>
     `;
@@ -36,7 +36,7 @@ function ResourcesBlock({ db }) {
 }
 
 window
-    .fetch('db')
+    .fetch('/api/db')
     .then((response) => response.json())
     .then(
         (db) =>
@@ -68,7 +68,7 @@ function CustomRoutesBlock({ customRoutes }) {
 }
 
 window
-    .fetch('__rules')
+    .fetch('/api/__rules')
     .then((response) => response.json())
     .then(
         (customRoutes) =>
