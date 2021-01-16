@@ -131,19 +131,6 @@ const generator = mode => {
   return data;
 };
 
-const generateDevBuild = () => {
-  const mode = process.env.NODE_ENV;
-  const data = generator(mode);
-  consola.success('Generation completed. Populating latest json into db.json');
-
-  fs.writeFile(
-    mode === 'development' ? 'dev_db.json' : 'db.json',
-    JSON.stringify(data),
-    'utf8',
-    () => consola.success('db.json populated!')
-  );
-};
-
 const array_of = (size, start, end) => {
   size = parseInt(size);
   const result = [];
@@ -172,4 +159,13 @@ const getRandomSubarray = (arr, size) => {
   return shuffled.slice(0, size);
 };
 
-generateDevBuild();
+const mode = process.env.NODE_ENV;
+const data = generator(mode);
+consola.success('Generation completed. Populating latest json into db.json');
+
+fs.writeFile(
+  mode === 'development' ? 'dev_db.json' : 'db.json',
+  JSON.stringify(data),
+  'utf8',
+  () => consola.success('db.json populated!')
+);
