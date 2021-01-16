@@ -1,10 +1,9 @@
-const {router: Router} = require('json-server');
+const {create: Server} = require('json-server');
 
-// Note: routes.json needs to be removed in future when everything is implemented perfectly
-const router = Router('routes.json');
+const router = Server();
 
 router.get('/lmao', (req, res) => {
-    res.json({ message: 'Say my name' });
+    return res.json({ message: 'Say my name' });
 });
 
 module.exports = router;
