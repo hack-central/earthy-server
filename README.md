@@ -1,3 +1,23 @@
+# Getting it up
+
+Make sure you've got yarn and install the project's dependencies
+
+```bash
+yarn
+```
+
+## Development
+```bash
+yarn start:dev
+```
+
+## Production
+```bash
+yarn start
+```
+
+Now just go to http://localhost:8080/ and you'll be good to go.
+
 # schemas
 
 ## user
@@ -138,10 +158,4 @@ axios(config)
     .catch(function(error) {
         console.log(error);
     });
-```
-
-# Deployment
-
-```
-pm2 start yarn -- start:deploy --name earthy-server -i -1
 ```
