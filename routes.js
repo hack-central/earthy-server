@@ -6,8 +6,8 @@ const middlewares = jsonServer.defaults()
 router.use(jsonServer.bodyParser);
 router.use(middlewares);
 router.use(jsonServer.rewriter({
-    "/posts": "/posts?_embed=comments&_embed=users",
-    "/posts/:id": "/posts/:id?_embed=comments&_embed=users",
+    "/posts": "/posts?_embed=comments",
+    "/posts/:id": "/posts/:id?_embed=comments",
     "/users": "/users?_embed=posts&_embed=comments",
     "/users/:id": "/users/:id?_embed=posts&_embed=comments"
 }));
