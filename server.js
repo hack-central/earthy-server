@@ -7,7 +7,7 @@ const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
 
 const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
-const router = server.router(db);
+const router = jsonServer.router(db);
 
 server.use(middlewares);
 server.use(customRouter);
