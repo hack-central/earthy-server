@@ -4,12 +4,10 @@ const consola = require('consola');
 
 consola.LogLevel = 4;
 const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
 
 const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
 const router = jsonServer.router(db);
 
-server.use(middlewares);
 server.use(jsonServer.bodyParser);
 server.use('/api', customRouter);
 server.use('/api', router);
