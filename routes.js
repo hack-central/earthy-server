@@ -1,10 +1,6 @@
 const jsonServer = require('json-server');
-
 const router = jsonServer.create();
-const middlewares = jsonServer.defaults();
 
-router.use(jsonServer.bodyParser);
-router.use(middlewares);
 router.use(
     jsonServer.rewriter({
         '/posts': '/posts?_embed=comments',

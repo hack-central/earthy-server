@@ -10,6 +10,7 @@ const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
 const router = jsonServer.router(db);
 
 server.use(middlewares);
+server.use(jsonServer.bodyParser);
 server.use('/api', customRouter);
 server.use('/api', router);
 
