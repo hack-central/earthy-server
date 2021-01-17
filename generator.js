@@ -56,6 +56,7 @@ const generator = (mode) => {
             email: casual.email,
             phoneNo: casual.phone,
             password: casual.password,
+            avatar: 'https://placeimg.com/640/480/people',
             events: array_of(casual.integer(1, MAX_EVENTS / 4), 1, MAX_USERS),
             points: Math.ceil((casual.integer(100, 5000) + 1) / 10) * 10,
             trophies: getRandomSubarray(trophyList, casual.integer(1, 15)),
