@@ -1,5 +1,4 @@
 {
-    "/api/*": "/$1",
     "/posts": "/posts?_embed=comments&_embed=users",
     "/posts/:id": "/posts/:id?_embed=comments&_embed=users",
     "/users": "/users?_embed=posts&_embed=comments",
