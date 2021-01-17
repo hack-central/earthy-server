@@ -4,7 +4,7 @@ const consola = require('consola');
 
 consola.LogLevel = 4;
 const server = jsonServer.create();
-const middlewares = jsonServer.defaults();
+const middlewares = jsonServer.defaults({ static: './images' });
 
 const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
 const router = jsonServer.router(db);
