@@ -21,24 +21,24 @@ const trophyList = [
 ];
 
 const randomNumber = (min, max) => {
-  let num = Math.random() * (max - min) + min;
+    let num = Math.random() * (max - min) + min;
 
-  return Math.floor(num);
+    return Math.floor(num);
 };
 
 const randomTreeImage = () => {
-  const number = randomNumber(1, 14);
-  const image = treeImage + `${number}.jpg`;
+    const number = randomNumber(1, 14);
+    const image = treeImage + `${number}-min.jpg`;
 
-  return image;
+    return image;
 };
 
-const generator = mode => {
-  casual.seed(1);
-  let MAX_USERS = 100;
-  let MAX_POSTS = 1000;
-  let MAX_COMMENTS = 10;
-  let MAX_EVENTS = 100;
+const generator = (mode) => {
+    casual.seed(1);
+    let MAX_USERS = 100;
+    let MAX_POSTS = 1000;
+    let MAX_COMMENTS = 10;
+    let MAX_EVENTS = 100;
 
     if (mode === 'development') {
         MAX_USERS = 10;
@@ -91,16 +91,16 @@ const generator = mode => {
         };
     });
 
-  casual.define('post', () => {
-    return {
-      title: casual.title,
-      content: casual.description,
-      likes: casual.integer(100, 2500),
-      userId: casual.integer(1, MAX_USERS),
-      photo: randomTreeImage(),
-      createdAt: casual.unix_time,
-    };
-  });
+    casual.define('post', () => {
+        return {
+            title: casual.title,
+            content: casual.description,
+            likes: casual.integer(100, 2500),
+            userId: casual.integer(1, MAX_USERS),
+            photo: randomTreeImage(),
+            createdAt: casual.unix_time,
+        };
+    });
 
     casual.define('comment', () => {
         return {
