@@ -1,5 +1,4 @@
 const jsonServer = require('json-server');
-
 const router = jsonServer.create();
 
 router.use((req, res, next) => {
