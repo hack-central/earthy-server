@@ -10,7 +10,9 @@ const db = process.env.NODE_ENV === 'development' ? 'dev_db.json' : 'db.json';
 const router = jsonServer.router(db);
 
 server.use(middlewares);
-server.use(customRouter);
-server.use(router);
+server.use('/api', customRouter);
+server.use('/api', router);
 
-server.listen(process.env.PORT, () => consola.success('Listening on port', process.env.PORT));
+server.listen(process.env.PORT, () =>
+    consola.success('Listening on port', process.env.PORT)
+);

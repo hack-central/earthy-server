@@ -159,3 +159,9 @@ axios(config)
         console.log(error);
     });
 ```
+
+# Deployment pm2
+
+```
+pm2 start yarn --interpreter bash --name "earthy-server" -i -1 -- start
+```
