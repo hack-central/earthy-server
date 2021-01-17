@@ -3,6 +3,7 @@ const casual = require('casual');
 const consola = require('consola');
 const { sub } = require('date-fns');
 
+const treeImage = 'https://earthy.sauravmh.com/images/';
 const trophyList = [
   'Mr. Green',
   'Earth Saviour',
@@ -18,6 +19,19 @@ const trophyList = [
   'Green Influencer Novice',
   'Green Influencer Veteran',
 ];
+
+const randomNumber = (min, max) => {
+  let num = Math.random() * (max - min) + min;
+
+  return Math.floor(num);
+};
+
+const randomTreeImage = () => {
+  const number = randomNumber(1, 14);
+  const image = treeImage + `${number}.jpg`;
+
+  return image;
+};
 
 const generator = mode => {
   casual.seed(1);
@@ -79,6 +93,7 @@ const generator = mode => {
       content: casual.description,
       likes: casual.integer(100, 2500),
       userId: casual.integer(1, MAX_USERS),
+      photo: randomTreeImage(),
       createdAt: casual.unix_time,
     };
   });
