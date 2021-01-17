@@ -1,7 +1,7 @@
 const jsonServer = require('json-server');
 
 const router = jsonServer.create();
-const middlewares = jsonServer.defaults({ noCors: true });
+const middlewares = jsonServer.defaults();
 
 router.use(jsonServer.bodyParser);
 router.use(middlewares);
